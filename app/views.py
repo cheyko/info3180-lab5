@@ -68,6 +68,14 @@ def secure_page():
     """Render a secure page on our website that only logged in users can access."""
     return render_template('secure_page.html')
 
+@app.route("/logout")
+@login_required
+def logout():
+    # Logout the user and end the session
+    flash('You have been logged out.', 'danger')
+    logout_user()
+    return redirect(url_for('home'))    
+
 # user_loader callback. This callback is used to reload the user object from
 # the user ID stored in the session
 @login_manager.user_loader
